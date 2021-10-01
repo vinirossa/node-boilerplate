@@ -2,6 +2,8 @@
   "branches": [
     "+([0-9])?(.{+([0-9]),x}).x",
     "main",
+    "next",
+    "next-major",
     {"name": "alpha", "prerelease": true},
     {"name": "beta", "prerelease": true},
     {"name": "rc", "prerelease": true}
@@ -11,16 +13,11 @@
     "@semantic-release/github",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    [
-      "@semantic-release/npm",
-      {
-        "npmPublish": false
-      }
-    ],
-    {
-      "path": "@semantic-release/git",
+    "@semantic-release/npm",
+    ["@semantic-release/git", {
       "assets": ["package.json", "yarn.lock", "CHANGELOG.md"],
       "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    }
+      }
+    ]
   ]
 }
