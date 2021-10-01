@@ -7,7 +7,7 @@ on:
     branches: [alpha, beta, rc, main]
 
 jobs:
-  build:
+  build-release:
     runs-on: ubuntu-latest
 
     strategy:
@@ -41,6 +41,7 @@ jobs:
       run: yarn install
 
     - name: Run commitlint
+      if: "!contains(github.event.commits[0].message, '[skip ci]')"
       run: yarn commitlint --from=HEAD~1
 
     - name: Run lint and fix
@@ -50,26 +51,17 @@ jobs:
       run: yarn test:ci
 
     - name: Release new version
-      run: semantic-release
+      env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release
 
-  merge-main-into-dev:
-      if: github.event.pull_request.merged == true
-      timeout-minutes: 2
-      runs-on: ubuntu-latest
+    - name: Extract branch name
+      uses: vazco/github-actions-branch-name@v1
+      id: branch
 
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set Git config
-        run: |
-            git config --local user.email "actions@github.com"
-            git config --local user.name "Github Actions"
-
-      - name: Merge main back to dev
-        run: |
-            git fetch --unshallow
-            git checkout dev
-            git pull
-            git merge --no-ff main -m "Auto-merge main into dev"
-            git push
+    - name: Rebase ${{ steps.branch.outputs.branch_name }} into dev
+      uses: ./.github/actions/rebase-branch
+      with:
+        source: ${{ steps.branch.outputs.branch_name }}
+        target: dev
