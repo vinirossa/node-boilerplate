@@ -1,0 +1,34 @@
+name: Merge branch
+description: An action to merge branch.
+
+inputs:
+  source:
+    required: true
+    description: 'Source branch of the merge'
+  target:
+    required: true
+    description: 'Target branch of the merge'
+  message:
+    required: false
+    description: 'Message for the merge'
+
+runs:
+  using: composite
+  steps:
+  - name: Checkout repository
+    uses: actions/checkout@v2
+
+  - name: Set Git config
+    shell: bash
+    run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "Github Actions"
+
+  - name: Merge ${{ inputs.source }} into {{ inputs.target }}
+    shell: bash
+    run: |
+        git fetch --unshallow
+        git checkout ${{ inputs.target }}
+        git pull
+        git merge --no-ff ${{ inputs.source }} ${{ inputs.message }}
+        git push

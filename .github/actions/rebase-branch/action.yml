@@ -1,0 +1,32 @@
+name: Rebase branch
+description: An action to rebase branch.
+
+inputs:
+  source:
+    required: true
+    description: 'Source branch of the rebase'
+  target:
+    required: true
+    description: 'Target branch of the rebase'
+
+runs:
+  using: composite
+  steps:
+  - name: Checkout repository
+    uses: actions/checkout@v2
+
+  - name: Set Git config
+    shell: bash
+    run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "Github Actions"
+
+  - name: Rebase ${{ inputs.source }} into {{ inputs.target }}
+    shell: bash
+    run: |
+        git fetch --unshallow
+        git checkout ${{ inputs.source }}
+        git pull --rebase
+        git checkout ${{ inputs.target }}
+        git rebase ${{ inputs.source }}
+        git push --force
