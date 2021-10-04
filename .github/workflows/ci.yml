@@ -42,8 +42,8 @@ jobs:
       if: "!contains(github.event.commits[0].message, '[skip ci]')"
       run: yarn commitlint --from=HEAD~1
 
-    - name: Run lint and fix
-      run: yarn lint:fix
+    - name: Run lint
+      run: yarn lint
 
     - name: Run tests
       run: yarn test:ci
