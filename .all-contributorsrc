@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md", "AUTHORS.md"
+  ],
+  "imageSize": 100,
+  "contributorsPerLine": 7,
+  "projectName": "testing-vinirossa100",
+  "projectOwner": "vinirossa",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "vinirossa",
+      "name": "Vinícius Pereira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72560319?v=4",
+      "profile": "https://github.com/vinirossa",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

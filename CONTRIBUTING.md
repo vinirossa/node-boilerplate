@@ -15,3 +15,7 @@ Note we have a code of conduct, please follow it in all your interactions with t
 6. Certify that your commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 7. Ensure coverage for your bug fixes or features is complete and that none of the tests fail.
 8. Be reactive to any comments, reviews or change requests entered in your pull request.
+
+## The AUTHORS.md file
+
+Anyone who has contributed a pull request to the project is welcome to add themselves to the [AUTHORS.md](https://github.com/vinirossa/node-boilerplate/blob/main/AUTHORS.md) file. This file lives in the repository and is packaged with distributions. This is an optional process.
