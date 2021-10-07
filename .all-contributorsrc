@@ -1,13 +1,14 @@
 {
-  "files": [
-    "README.md", "AUTHORS.md"
-  ],
-  "imageSize": 100,
-  "contributorsPerLine": 7,
-  "projectName": "testing-vinirossa100",
+  "projectName": "node-boilerplate",
   "projectOwner": "vinirossa",
   "repoType": "github",
   "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "contributorsPerLine": 7,
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square&label=contributors)](#contributors)",
   "skipCi": true,
   "commit": false,
   "commitConvention": "angular",
@@ -18,7 +19,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/72560319?v=4",
       "profile": "https://github.com/vinirossa",
       "contributions": [
-        "code"
+        "maintenance", "code", "infra", "doc","review"
       ]
     }
   ]

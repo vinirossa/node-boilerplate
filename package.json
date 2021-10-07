@@ -27,7 +27,10 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "test:ci": "jest --runInBand",
-        "commit": "git cz"
+        "commit": "git cz",
+        "add:contrib": "all-contributors add",
+        "check:contrib": "all-contributors check",
+        "generate:contrib": "all-contributors generate"
     },
     "dependencies": {},
     "devDependencies": {
