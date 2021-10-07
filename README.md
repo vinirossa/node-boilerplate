@@ -4,16 +4,13 @@
 
 [![GitHub version](https://img.shields.io/github/package-json/v/vinirossa/node-boilerplate/main?label=version)](https://github.com/vinirossa/node-boilerplate)
 [![GitHub downloads](https://img.shields.io/github/downloads/vinirossa/node-boilerplate/total?color=41BC14)](https://github.com/vinirossa/node-boilerplate)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/CONTRIBUTING.md)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/LICENSE)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square&label=contributors)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- [![npm version](https://img.shields.io/npm/v/node-boilerplate.svg?logo=npm&logoColor=fff&label=npm&color=b22323)](https://www.npmjs.com/package/node-boilerplate)
 [![npm downloads](https://img.shields.io/npm/dt/node-boilerplate?color=success)](https://www.npmjs.com/package/node-boilerplate)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/CONTRIBUTING.md)  -->
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vinirossa/node-boilerplate/blob/main/LICENSE)  -->
 
 </span>
 
