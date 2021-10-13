@@ -76,12 +76,12 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Extract branch name
-      uses: vazco/github-actions-branch-name@v1
-      id: branch
+    - name: Get branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v5
 
-    - name: Rebase ${{ steps.branch.outputs.branch_name }} onto dev
+    - name: Rebase ${{ steps.branch-name.outputs.current_branch }}  onto dev
       uses: ./.github/actions/rebase-branch
       with:
-        source: ${{ steps.branch.outputs.branch_name }}
+        source: ${{ steps.branch-name.outputs.current_branch }}
         target: dev
