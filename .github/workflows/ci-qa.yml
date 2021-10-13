@@ -1,0 +1,102 @@
+name: Node.js CI (QA)
+
+on:
+  push:
+    branches: [qa]
+
+env:
+  NODE_VERSION: "14.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Node ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache yarn
+      uses: c-hive/gha-yarn-cache@v2
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Run commitlint
+      if: "!contains(github.event.commits[0].message, '[skip ci]')"
+      run: yarn commitlint --from=HEAD~1
+
+    - name: Run lint
+      run: yarn lint
+
+    - name: Run tests
+      run: yarn test:ci
+
+  simulate-release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Node ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache yarn
+      uses: c-hive/gha-yarn-cache@v2
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Overwrite .releaserc.json file
+      shell: bash
+      run: |
+          echo '{
+            "branches": [
+              "+([0-9])?(.{+([0-9]),x}).x",
+              "main",
+              "qa",
+              "next",
+              "next-major",
+              {"name": "alpha", "prerelease": true},
+              {"name": "beta", "prerelease": true},
+              {"name": "rc", "prerelease": true}
+            ],
+            "plugins": [
+              "@semantic-release/commit-analyzer",
+              "@semantic-release/github",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/changelog",
+              ["@semantic-release/npm", {
+              "npmPublish": false
+              }],
+              ["@semantic-release/git", {
+                "assets": ["package.json", "yarn.lock", "CHANGELOG.md"],
+                "message": "chore(release): ${nextRelease.version} [skip ci]\\n\\n${nextRelease.notes}"
+                }
+              ]
+            ]
+          }' > .releaserc.json
+
+    - name: Add and commit .releaserc.json file
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_email: "actions@github.com"
+        author_name: "GitHub Actions"
+        message: "chore: overwrite .releaserc.json file [skip ci]"
+
+    - name: Simulate the release of a new version
+      env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: npx semantic-release
