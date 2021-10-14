@@ -4,16 +4,11 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    time: "10:06"
   target_branch: "dev"
-  automerged_updates:
-      - match:
-          dependency_type: "all"
-          update_type: "semver:minor"
   open-pull-requests-limit: 10
-  default_labels:
+  labels:
       - "dependencies"
       - "dependabot"
-  commit_message:
+  commit-message:
       prefix: "build"
-      include_scope: true
+      include: "scope"
