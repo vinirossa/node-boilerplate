@@ -2,7 +2,7 @@ name: Node.js CI (QA)
 
 on:
   push:
-    branches: [qa]
+    branches: [qa, 'qa/*']
 
 env:
   NODE_VERSION: "14.x"
