@@ -2,7 +2,7 @@ name: Node.js CI (QA)
 
 on:
   push:
-    branches: [qa, 'qa/*']
+    branches: [qa, 'qa/**']
 
 env:
   NODE_VERSION: "14.x"
@@ -75,17 +75,11 @@ jobs:
             ],
             "plugins": [
               "@semantic-release/commit-analyzer",
-              "@semantic-release/github",
               "@semantic-release/release-notes-generator",
               "@semantic-release/changelog",
-              ["@semantic-release/npm", {
-              "npmPublish": false
-              }],
-              ["@semantic-release/git", {
-                "assets": ["package.json", "yarn.lock", "CHANGELOG.md"],
-                "message": "chore(release): ${nextRelease.version} [skip ci]\\n\\n${nextRelease.notes}"
-                }
-              ]
+              ["@semantic-release/exec", {
+              "verifyReleaseCmd": "echo ${nextRelease.version}"
+              }]
             ]
           }' > .releaserc.json
 
@@ -99,4 +93,4 @@ jobs:
     - name: Simulate the release of a new version
       env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: npx semantic-release
+      run: npx semantic-release --dry-run
