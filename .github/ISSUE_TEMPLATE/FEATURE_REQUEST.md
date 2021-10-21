@@ -10,11 +10,11 @@ assignees: ''
 
 ## Describe the feature
 
-A clear and concise description of what the feature is.
+A clear and concise description of what the feature is. *Ex.: I'm always frustrated when...*
 
 ## Why is it needed?
 
-A clear and concise description of what the problem is. *Ex.: I'm always frustrated when...*
+A clear and concise reason why the feature is needed.
 
 ## Suggested solution(s)
 
