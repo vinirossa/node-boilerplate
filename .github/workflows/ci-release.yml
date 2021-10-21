@@ -2,7 +2,7 @@ name: Node.js CI (Release)
 
 on:
   push:
-    branches: ['release/*']
+    branches: ['release/**']
 
 env:
   NODE_VERSION: "14.x"
@@ -48,12 +48,20 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Get branch name
+    - name: Get current branch name
       id: branch-name
       uses: tj-actions/branch-names@v5
 
-    - name: Rebase ${{ steps.branch-name.outputs.current_branch }}  onto dev
+    - name: Rebase ${{ steps.branch-name.outputs.current_branch }} onto dev
       uses: ./.github/actions/rebase-branch
       with:
         source: ${{ steps.branch-name.outputs.current_branch }}
         target: dev
+
+    - name: Push changes to the branch dev
+      uses: CasperWA/push-protected@v2
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        branch: dev
+        force: true
+        unprotect_reviews: true

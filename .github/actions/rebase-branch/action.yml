@@ -28,5 +28,5 @@ runs:
         git checkout ${{ inputs.source }}
         git pull --rebase
         git checkout ${{ inputs.target }}
+        git pull --rebase
         git rebase ${{ inputs.source }}
-        git push --force

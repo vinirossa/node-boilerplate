@@ -67,6 +67,7 @@ jobs:
               "+([0-9])?(.{+([0-9]),x}).x",
               "main",
               "qa",
+              "qa/**",
               "next",
               "next-major",
               {"name": "alpha", "prerelease": true},
@@ -83,12 +84,26 @@ jobs:
             ]
           }' > .releaserc.json
 
+    - name: Get current branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v5
+
     - name: Add and commit .releaserc.json file
       uses: EndBug/add-and-commit@v7
       with:
+        branch: ${{ steps.branch-name.outputs.current_branch }}
         author_email: "actions@github.com"
         author_name: "GitHub Actions"
         message: "chore: overwrite .releaserc.json file [skip ci]"
+        push: false
+
+    - name: Push changes to the branch ${{ steps.branch-name.outputs.current_branch }}
+      uses: CasperWA/push-protected@v2
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        branch: ${{ steps.branch-name.outputs.current_branch }}
+        force: true
+        unprotect_reviews: true
 
     - name: Simulate the release of a new version
       env:

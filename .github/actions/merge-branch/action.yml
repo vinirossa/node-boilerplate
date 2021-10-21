@@ -29,6 +29,5 @@ runs:
     run: |
         git fetch --unshallow
         git checkout ${{ inputs.target }}
-        git pull
+        git pull --rebase
         git merge --no-ff ${{ inputs.source }} ${{ inputs.message }}
-        git push
