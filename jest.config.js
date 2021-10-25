@@ -11,6 +11,11 @@ module.exports = {
     prefix: '<rootDir>'
   }),
   preset: 'ts-jest',
-  testMatch: ['**/test/**/*.[jt]s?(x)', '**/src/**/*.(spec|test).[jt]s?(x)'],
+  testMatch: [
+    '**/test/**/*.[jt]s?(x)',
+    '**/src/**/*.(spec|test).[jt]s?(x)',
+    '**/lib/**/*.(spec|test).[jt]s?(x)',
+    '**/bin/**/*.(spec|test).[jt]s?(x)'
+  ],
   verbose: true
 }
