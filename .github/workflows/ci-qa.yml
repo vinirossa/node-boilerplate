@@ -2,7 +2,7 @@ name: Node.js CI (QA)
 
 on:
   push:
-    branches: [qa, 'qa/**']
+    branches: [qa, 'qa/**', 'qa-**']
 
 env:
   NODE_VERSION: "14.x"
@@ -48,6 +48,15 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Get current branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v5
+
+    - name: Cancel job if not on branches qa-release or qa-prerelease
+      if: ${{ steps.branch-name.outputs.current_branch != 'qa-release' &&
+              steps.branch-name.outputs.current_branch != 'qa-prerelease' }}
+      uses: andymckay/cancel-action@0.2
+
     - name: Set up Node ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v2
       with:
@@ -66,13 +75,13 @@ jobs:
             "branches": [
               "+([0-9])?(.{+([0-9]),x}).x",
               "main",
-              "qa",
-              "qa/**",
               "next",
               "next-major",
+              "qa-release",
               {"name": "alpha", "prerelease": true},
               {"name": "beta", "prerelease": true},
-              {"name": "rc", "prerelease": true}
+              {"name": "rc", "prerelease": true},
+              {"name": "qa-prerelease", "prerelease": true}
             ],
             "plugins": [
               "@semantic-release/commit-analyzer",
@@ -83,10 +92,6 @@ jobs:
               }]
             ]
           }' > .releaserc.json
-
-    - name: Get current branch name
-      id: branch-name
-      uses: tj-actions/branch-names@v5
 
     - name: Add and commit .releaserc.json file
       uses: EndBug/add-and-commit@v7
